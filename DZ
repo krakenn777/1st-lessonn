@@ -1,0 +1,46 @@
+class Task:
+    def __init__(self, name, description, deadline):
+        self.name = name
+        self.description = description
+        self.deadline = deadline
+        self.done = False
+
+    def mark_done(self):
+        self.done = True
+
+    def __str__(self):
+        status = "Выполнено" if self.done else "Не выполнено"
+        return f"{self.name} ({self.deadline}) - {status}\nОписание: {self.description}"
+
+
+class TaskManager:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def remove_task(self, task_name):
+        self.tasks = [t for t in self.tasks if t.name != task_name]
+
+    def mark_task_done(self, task_name):
+        for t in self.tasks:
+            if t.name == task_name:
+                t.mark_done()
+
+    def show_tasks(self):
+        for t in self.tasks:
+            print(t)
+
+
+
+manager = TaskManager()
+
+task1 = Task("Сделать ДЗ", "По информатике", "22.09.2025")
+task2 = Task("Купить хлеб", "Белый, свежий", "21.09.2025")
+
+manager.add_task(task1)
+manager.add_task(task2)
+
+manager.mark_task_done("Сделать ДЗ")
+manager.show_tasks()
